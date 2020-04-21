@@ -16,7 +16,12 @@ class Application
         resp.write "#{item}\n"
       end
     elsif req.path.match(/add/)
-      search_term = req.params[""]
+      search_term = req.params["item"]
+      if @@items.include?(search_term)
+        @@cart << search_term
+      else 
+        resp.write "error"
+      end
     elsif req.path.match(/search/)
       search_term = req.params["q"]
       resp.write handle_search(search_term)
